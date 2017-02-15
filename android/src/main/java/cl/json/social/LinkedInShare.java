@@ -25,7 +25,7 @@ public class LinkedInShare extends SingleShareIntent {
 
     @Override
     protected String getDefaultWebLink() {
-        return DEFAULT_WEB_LINK;
+        return null;
     }
 
     @Override
