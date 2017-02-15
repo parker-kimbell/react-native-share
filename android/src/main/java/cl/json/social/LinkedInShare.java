@@ -8,7 +8,6 @@ import com.facebook.react.bridge.ReadableMap;
 public class LinkedInShare extends SingleShareIntent {
 
     private static final String PACKAGE = "com.linkedin";
-    private static final String DEFAULT_WEB_LINK = "https://twitter.com/intent/tweet?text={message}&url={url}";
 
     public LinkedInShare(ReactApplicationContext reactContext) {
         super(reactContext);
