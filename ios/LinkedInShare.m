@@ -17,7 +17,7 @@
 
     if ([options objectForKey:@"message"] && [options objectForKey:@"message"] != [NSNull null]) {
         NSString *text = [RCTConvert NSString:options[@"message"]];
-        NSString * urlLinkedIn = [NSString stringWithFormat:@"linkedin://shareArticle?url=%@", [text stringByAppendingString: [@" " stringByAppendingString: options[@"url"]] ]];
+        NSString * urlLinkedIn = [NSString stringWithFormat:@"linkedin://shareArticle"];
         NSURL * linkedInURL = [NSURL URLWithString:[urlLinkedIn stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
         if ([[UIApplication sharedApplication] canOpenURL: linkedInURL]) {
