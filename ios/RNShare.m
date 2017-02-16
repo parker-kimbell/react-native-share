@@ -85,7 +85,7 @@ RCT_EXPORT_METHOD(shareSingle:(NSDictionary *)options
         } else if([social isEqualToString:@"linkedin"]) {
             NSLog(@"Attempting to share with LinkedIn");
             LinkedInShare *shareCtl = [[LinkedInShare alloc] init];
-            [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback];
+            [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback serviceType: @"com.linkedin.LinkedIn.ShareExtension"];
         }
     } else {
         RCTLogError(@"No exists social key");
