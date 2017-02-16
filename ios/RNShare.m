@@ -44,7 +44,6 @@
 #import "WhatsAppShare.h"
 #import "GooglePlusShare.h"
 #import "EmailShare.h"
-#import "LinkedInShare.h"
 
 @implementation RNShare
 - (dispatch_queue_t)methodQueue
@@ -84,7 +83,7 @@ RCT_EXPORT_METHOD(shareSingle:(NSDictionary *)options
             [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback];
         } else if([social isEqualToString:@"linkedin"]) {
             NSLog(@"Attempting to share with LinkedIn");
-            LinkedInShare *shareCtl = [[LinkedInShare alloc] init];
+            GenericShare *shareCtl = [[GenericShare alloc] init];
             [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback serviceType: @"com.linkedin.LinkedIn.ShareExtension"];
         }
     } else {
