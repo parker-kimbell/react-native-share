@@ -56,7 +56,7 @@ RCT_EXPORT_METHOD(shareSingle:(NSDictionary *)options
                   failureCallback:(RCTResponseErrorBlock)failureCallback
                   successCallback:(RCTResponseSenderBlock)successCallback)
 {
-    
+
     NSString *social = [RCTConvert NSString:options[@"social"]];
     if (social) {
         NSLog(social);
@@ -74,13 +74,19 @@ RCT_EXPORT_METHOD(shareSingle:(NSDictionary *)options
             [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback];
         } else if([social isEqualToString:@"whatsapp"]) {
             NSLog(@"TRY OPEN whatsapp");
-            
+
             WhatsAppShare *shareCtl = [[WhatsAppShare alloc] init];
             [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback];
         } else if([social isEqualToString:@"email"]) {
             NSLog(@"TRY OPEN email");
             EmailShare *shareCtl = [[EmailShare alloc] init];
+            UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+            [ctrl presentViewController:shareCtl animated:YES completion:Nil];
             [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback];
+        } else if([social isEqualToString:@"linkedin"]) {
+            NSLog(@"Attempting to share with LinkedIn");
+            GenericShare *shareCtl = [[GenericShare alloc] init];
+            [shareCtl shareSingle:options failureCallback: failureCallback successCallback: successCallback serviceType: @"com.linkedin.LinkedIn.ShareExtension"];
         }
     } else {
         RCTLogError(@"No exists social key");
