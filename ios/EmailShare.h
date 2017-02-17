@@ -49,7 +49,6 @@
 #import "React/RCTUtils.h"   // Required when used as a Pod in a Swift project
 #endif
 #import <MessageUI/MessageUI.h>
-@interface EmailShare : NSObject <MFMailComposeViewControllerDelegate>
-
+@interface EmailShare : UIViewController <MFMailComposeViewControllerDelegate>
 - (void *) shareSingle:(NSDictionary *)options failureCallback:(RCTResponseErrorBlock)failureCallback successCallback:(RCTResponseSenderBlock)successCallback;
 @end
