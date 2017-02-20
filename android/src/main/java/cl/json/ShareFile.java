@@ -1,5 +1,6 @@
 package cl.json;
 
+import cl.json.social.*;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.util.Base64;
 import android.webkit.MimeTypeMap;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableMap;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -105,7 +107,7 @@ public class ShareFile {
         cursor.close();
         return result;
     }
-    public Uri getURI() {
+    public Uri getURI(ReadableMap options) {
 
         final MimeTypeMap mime = MimeTypeMap.getSingleton();
         this.extension = mime.getExtensionFromMimeType(getType());
@@ -116,7 +118,12 @@ public class ShareFile {
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                File file = new File(dir, System.currentTimeMillis() + "." + this.extension);
+                File file;
+                if (ShareIntent.hasValidKey("attachmentName", options)) { // Case: the user has passed in an attachment name. Give the attached file that name
+                  file = new File(dir, options.getString("attachmentName") + "." + this.extension);
+                } else { // Case: the user has not passed in an attachment name. Default to "attachment" for the attachment name
+                  file = new File(dir, "attachment" + "." + this.extension);
+                }
                 final FileOutputStream fos = new FileOutputStream(file);
                 fos.write(Base64.decode(encodedImg, Base64.DEFAULT));
                 fos.flush();
