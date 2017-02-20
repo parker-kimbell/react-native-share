@@ -5,15 +5,11 @@ import android.content.ActivityNotFoundException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 
-/**
- * Created by disenodosbbcl on 23-07-16.
- */
-public class TwitterShare extends SingleShareIntent {
+public class LinkedInShare extends SingleShareIntent {
 
-    private static final String PACKAGE = "com.twitter.android";
-    private static final String DEFAULT_WEB_LINK = "https://twitter.com/intent/tweet?text={message}&url={url}";
+    private static final String PACKAGE = "com.linkedin.android";
 
-    public TwitterShare(ReactApplicationContext reactContext) {
+    public LinkedInShare(ReactApplicationContext reactContext) {
         super(reactContext);
     }
     @Override
@@ -29,7 +25,7 @@ public class TwitterShare extends SingleShareIntent {
 
     @Override
     protected String getDefaultWebLink() {
-        return DEFAULT_WEB_LINK;
+        return null;
     }
 
     @Override
