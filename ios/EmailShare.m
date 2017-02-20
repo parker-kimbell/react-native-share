@@ -70,7 +70,7 @@
         message = [RCTConvert NSString:options[@"message"]];
     }
 
-    if ([options objectForKey:@"url"] && [options objectForKey:@"url"] != [NSNull null]) {
+    if ([options objectForKey:@"url"] != nil) {
         url = [RCTConvert NSURL:options[@"url"]];
     }
 
@@ -94,14 +94,19 @@
 
     // Attach an image to the email
     NSError *error;
-    NSData *data = [NSData dataWithContentsOfURL:url
-                                         options:(NSDataReadingOptions)0
-                                           error:&error];
-    if (!data) {
-        failureCallback(error);
-        return;
+    NSData *data;
+    if (url != nil) { // Case: RN has sent along an attachment
+        data = [NSData dataWithContentsOfURL:url
+                                     options:(NSDataReadingOptions)0
+                                       error:&error];
+        if (!data) {
+            failureCallback(error);
+            return;
+        }
+        [email addAttachmentData:data mimeType:mimeType fileName:attachmentFileName];
     }
-    [email addAttachmentData:data mimeType:mimeType fileName:attachmentFileName];
+
+
 
     // // Configure the email fields
     [email setSubject:subject];
