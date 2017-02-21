@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.content.pm.PackageManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -71,6 +72,16 @@ public class RNShareModule extends ReactContextBaseJavaModule {
             }
         } else {
             failureCallback.invoke("no exists social key");
+        }
+    }
+    @ReactMethod
+    public void isAppInstalled(String packageName, @Nullable Callback failureCallback, @Nullable Callback successCallback) {
+        PackageManager pm = this.reactContext.getApplicationContext().getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            successCallback.invoke(true);
+        } catch (Exception e) {
+            failureCallback.invoke(false);
         }
     }
 }

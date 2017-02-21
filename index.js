@@ -56,6 +56,7 @@ class RNShare {
       }
     });
   }
+
   static shareSingle(options){
     if (Platform.OS === "ios" || Platform.OS === "android") {
       return new Promise((resolve, reject) => {
@@ -69,6 +70,20 @@ class RNShare {
       });
     } else {
       throw new Exception("not implemented");
+    }
+  }
+
+  static isAppInstalled(packageName){
+    if (Platform.OS === "android") {
+      return new Promise((resolve, reject) => {
+        NativeModules.RNShare.isAppInstalled(packageName,(isNotInstalled) => {
+          return reject(isNotInstalled);
+        },(isInstalled) => {
+          return resolve(isInstalled);
+        });
+      });
+    } else {
+      throw new Exception("Not yet supported for iOS");
     }
   }
 }
