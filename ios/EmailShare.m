@@ -52,6 +52,10 @@
     if (![MFMailComposeViewController canSendMail]) { // Case: the user doesn't have their mail setup
         //This should have already been checked by the calling app, so currently we pretty much just fail silently
         NSLog(@"Mail services are not available.");
+        UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        [ctrl dismissViewControllerAnimated:YES completion:NULL];
+        NSError *error = [NSError errorWithDomain:@"email" code:-1 userInfo:NULL];
+        failureCallback(error);
         return;
     }
 
